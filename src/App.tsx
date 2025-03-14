@@ -57,7 +57,7 @@ const calculateFormula = (tokens: string[], tags: AutoCompObj[]) => {
 function App() {
   const { tags, setTags } = useStore((state) => state);
 
-  const { data, error, isFetching } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["tags"],
     queryFn: async (): Promise<Array<AutoCompObj>> => {
       const response = await fetch(
@@ -199,6 +199,7 @@ function App() {
               <PopoverTrigger asChild className="bg-transparent">
                 <Input
                   className="absolute opacity-0 pointer-events-none"
+                  onBlur={handleBlur}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
                   placeholder="= enter formula here"
@@ -324,7 +325,7 @@ function App() {
                                         token
                                     )?.category ?? ""
                                   }
-                                  onSelect={(currentValue: string) => {
+                                  onSelect={() => {
                                     // maybe later
                                   }}
                                 >
